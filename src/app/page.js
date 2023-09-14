@@ -10,7 +10,9 @@ export default function Home() {
       </div>
       <div className="flex flex-col items-center justify-center w-full overflow-hidden">
         <div className="border border-neutral-800 overflow-hidden rounded-md p-2 aspect-video w-10/12 bg-neutral-900 group relative">
-          <div className="absolute inset-0 top-auto h-10 transition-all group-hover:bg-black/80 flex items-center justify-center"></div>
+          <div className="absolute inset-0 top-auto h-10 transition-all group-hover:bg-gradient-to-t group-hover:from-black/60 group-hover:via-black/20 group-hover:to-black/0  flex items-center justify-center">
+            {/* <Controls left={<Play />} right={<Volume />} /> */}
+          </div>
         </div>
       </div>
     </main>
