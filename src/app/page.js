@@ -13,8 +13,8 @@ export default function Home() {
   const [position, setPosition] = useState(0);
   const [diagnoseContent, setDiagnoseContent] = useState([]);
   function handleCurrentPosition(e) {
-    const elementWidth = e.target.offsetWidth;
-    const elementLeft = e.target.offsetLeft;
+    const elementWidth = e.target.getboundingClientRect().width;
+    const elementLeft = e.target.getboundingClientRect().left;
     const clickPosition = e.clientX;
     const position = Math.round(
       ((clickPosition - elementLeft) / elementWidth) * 100
@@ -24,6 +24,7 @@ export default function Home() {
       `elementLeft: ${elementLeft}`,
       `clickPosition: ${clickPosition}`,
       `position: ${position}`,
+
       `${JSON.stringify(e.target.getBoundingClientRect())}}`,
     ];
     setDiagnoseContent(diagnose);
