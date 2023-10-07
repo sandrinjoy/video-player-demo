@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   IoMdPlay,
@@ -7,7 +8,29 @@ import {
 } from "react-icons/io";
 import { RiFullscreenFill } from "react-icons/ri";
 import { BiSolidCaptions } from "react-icons/bi";
+import { useState } from "react";
 export default function Home() {
+  const [position, setPosition] = useState(0);
+  const [diagnoseContent, setDiagnoseContent] = useState([]);
+  function handleCurrentPosition(e) {
+    const elementWidth = e.target.offsetWidth;
+    const elementLeft = e.target.offsetLeft;
+    const clickPosition = e.clientX;
+    const position = Math.round(
+      ((clickPosition - elementLeft) / elementWidth) * 100
+    );
+    const diagnose = [
+      `elementWidth: ${elementWidth}`,
+      `elementLeft: ${elementLeft}`,
+      `clickPosition: ${clickPosition}`,
+      `position: ${position}`,
+      `${JSON.stringify(e.target.getBoundingClientRect())}}`,
+    ];
+    setDiagnoseContent(diagnose);
+
+    setPosition(position);
+  }
+
   return (
     <main className="bg-gradient-to-t from-neutral-200 via-neutral-300 to-neutral-300  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
       <div>
@@ -16,12 +39,27 @@ export default function Home() {
         </h1>
       </div>
       <div className="flex flex-col items-center justify-center w-full overflow-hidden">
-        <div className=" overflow-hidden  p-2 aspect-video w-10/12 bg-white relative">
+        <div className=" overflow-hidden  p-2 aspect-video w-10/12 bg-white relative text-black">
+          {diagnoseContent.length > 0 && (
+            <div className="absolute top-0 left-0 z-50 bg-white/50 p-2">
+              {diagnoseContent.map((item, index) => (
+                <p key={index}>{item}</p>
+              ))}
+            </div>
+          )}
+
           <div className="absolute inset-0 top-auto h-1/3 transition-all bg-gradient-to-t from-black/40 via-black/20 to-black/0 flex flex-col gap-3 items-stretch justify-end px-2 pb-3">
             {/* bar */}
             <div className="h-[3px] w-full bg-gray-200/30">
               {/* current */}
-              <div className="w-1/2 h-full bg-gray-200"></div>
+              <div
+                style={{ width: `${position}%` }}
+                className="h-full bg-red-600 relative"
+                onClick={handleCurrentPosition}
+              >
+                <span className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0"></span>
+              </div>
+              {/* cursor */}
             </div>
             <div className="px-3 flex justify-between items-center drop-shadow-xl">
               {/* left */}
