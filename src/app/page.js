@@ -8,13 +8,16 @@ import {
 } from "react-icons/io";
 import { RiFullscreenFill } from "react-icons/ri";
 import { BiSolidCaptions } from "react-icons/bi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 export default function Home() {
   const [position, setPosition] = useState(0);
+  const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
   function handleCurrentPosition(e) {
-    const elementWidth = e.target.getboundingClientRect().width;
-    const elementLeft = e.target.getboundingClientRect().left;
+    const barElement = progressBarRef.current;
+    const elementWidth = barElement.getBoundingClientRect().width;
+    const elementLeft = e.target.getBoundingClientRect().left;
+    console.log({ elementLeft, elementWidth });
     const clickPosition = e.clientX;
     const position = Math.round(
       ((clickPosition - elementLeft) / elementWidth) * 100
@@ -51,14 +54,17 @@ export default function Home() {
 
           <div className="absolute inset-0 top-auto h-1/3 transition-all bg-gradient-to-t from-black/40 via-black/20 to-black/0 flex flex-col gap-3 items-stretch justify-end px-2 pb-3">
             {/* bar */}
-            <div className="h-[3px] w-full bg-gray-200/30">
+            <div
+              className="h-[3px] w-full bg-gray-200/30"
+              ref={progressBarRef}
+              onClick={handleCurrentPosition}
+            >
               {/* current */}
               <div
                 style={{ width: `${position}%` }}
                 className="h-full bg-red-600 relative"
-                onClick={handleCurrentPosition}
               >
-                <span className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0"></span>
+                <span className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"></span>
               </div>
               {/* cursor */}
             </div>
