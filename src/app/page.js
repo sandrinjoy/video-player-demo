@@ -17,7 +17,6 @@ export default function Home() {
     const barElement = progressBarRef.current;
     const elementWidth = barElement.getBoundingClientRect().width;
     const elementLeft = e.target.getBoundingClientRect().left;
-    console.log({ elementLeft, elementWidth });
     const clickPosition = e.clientX;
     const position = Math.round(
       ((clickPosition - elementLeft) / elementWidth) * 100
@@ -34,7 +33,12 @@ export default function Home() {
 
     setPosition(position);
   }
+  function handleCurrentHeadDrag(e) {
+    handleCurrentPosition(e);
+  }
+  function handleDragStart(e) {}
 
+  function handleDragEnd(e) {}
   return (
     <main className="bg-gradient-to-t from-neutral-200 via-neutral-300 to-neutral-300  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
       <div>
@@ -64,7 +68,13 @@ export default function Home() {
                 style={{ width: `${position}%` }}
                 className="h-full bg-red-600 relative"
               >
-                <span className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"></span>
+                <span
+                  className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
+                  draggable
+                  onDrag={handleCurrentHeadDrag}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                ></span>
               </div>
               {/* cursor */}
             </div>
