@@ -18,6 +18,7 @@ export default function Home() {
     const elementWidth = barElement.getBoundingClientRect().width;
     const elementLeft = e.target.getBoundingClientRect().left;
     const clickPosition = e.clientX;
+
     const position = Math.round(
       ((clickPosition - elementLeft) / elementWidth) * 100
     );
@@ -34,7 +35,7 @@ export default function Home() {
     setPosition(position);
   }
   function handleCurrentHeadDrag(e) {
-    handleCurrentPosition(e);
+    // handleCurrentPosition(e);
   }
   function handleDragStart(e) {}
 
@@ -59,7 +60,7 @@ export default function Home() {
           <div className="absolute inset-0 top-auto h-1/3 transition-all bg-gradient-to-t from-black/40 via-black/20 to-black/0 flex flex-col gap-3 items-stretch justify-end px-2 pb-3">
             {/* bar */}
             <div
-              className="h-[3px] w-full bg-gray-200/30"
+              className="h-[3px] w-full bg-gray-200/30 group/progress-bar cursor-pointer"
               ref={progressBarRef}
               onClick={handleCurrentPosition}
             >
@@ -69,7 +70,10 @@ export default function Home() {
                 className="h-full bg-red-600 relative"
               >
                 <span
-                  className="absolute top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
+                  className="
+                    opacity-0
+                  transition-all
+                  group-hover/progress-bar:opacity-100 absolute  top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
                   draggable
                   onDrag={handleCurrentHeadDrag}
                   onDragStart={handleDragStart}
