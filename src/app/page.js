@@ -16,13 +16,14 @@ export default function Home() {
   function handleCurrentPosition(e) {
     const barElement = progressBarRef.current;
     const elementWidth = barElement.getBoundingClientRect().width;
-    const elementLeft = e.target.getBoundingClientRect().left;
+    const elementLeft = barElement.getBoundingClientRect().left;
     const clickPosition = e.clientX;
 
     const position = Math.round(
       ((clickPosition - elementLeft) / elementWidth) * 100
     );
     const diagnose = [
+      "element" + JSON.stringify(barElement.getBoundingClientRect()),
       `elementWidth: ${elementWidth}`,
       `elementLeft: ${elementLeft}`,
       `clickPosition: ${clickPosition}`,
@@ -62,7 +63,7 @@ export default function Home() {
             <div
               className="h-[3px] w-full bg-gray-200/30 group/progress-bar cursor-pointer"
               ref={progressBarRef}
-              onClick={handleCurrentPosition}
+              onMouseDown={handleCurrentPosition}
             >
               {/* current */}
               <div
