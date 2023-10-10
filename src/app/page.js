@@ -36,6 +36,7 @@ export default function Home() {
     setPosition(position);
   }
   function handleCurrentHeadDrag(e) {
+    handleCurrentPosition(e);
     // handleCurrentPosition(e);
   }
   function handleDragStart(e) {}
