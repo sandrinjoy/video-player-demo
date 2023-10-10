@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import {
   IoMdPlay,
   IoMdSettings,
@@ -12,7 +11,6 @@ import { useEffect, useRef, useState } from "react";
 export default function Home() {
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
-  const currentHeadRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
   function handleCurrentPosition(e) {
     const barElement = progressBarRef.current;
@@ -41,7 +39,7 @@ export default function Home() {
     // handleCurrentPosition(e);
   }
   function handleDragStart(e) {
-    e.dataTransfer.setDragImage(new Image(), 0, 0);
+    // e.dataTransfer.setDragImage(new Image(), 0, 0);
   }
 
   function handleDragEnd(e) {}
@@ -80,11 +78,13 @@ export default function Home() {
                     opacity-0
                   transition-all
                   group-hover/progress-bar:opacity-100 absolute  top-1/2 w-4 h-4 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
-                  ref={currentHeadRef}
+                ></span>
+                <span
                   draggable
                   onDrag={handleCurrentHeadDrag}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
+                  className="absolute top-1/2 w-4 h-4   rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
                 ></span>
               </div>
               {/* cursor */}
