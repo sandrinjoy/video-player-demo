@@ -8,10 +8,11 @@ import {
 } from "react-icons/io";
 import { RiFullscreenFill } from "react-icons/ri";
 import { BiSolidCaptions } from "react-icons/bi";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 export default function Home() {
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
+  const currentHeadRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
   function handleCurrentPosition(e) {
     const barElement = progressBarRef.current;
@@ -39,9 +40,12 @@ export default function Home() {
     handleCurrentPosition(e);
     // handleCurrentPosition(e);
   }
-  function handleDragStart(e) {}
+  function handleDragStart(e) {
+    e.dataTransfer.setDragImage(new Image(), 0, 0);
+  }
 
   function handleDragEnd(e) {}
+
   return (
     <main className="bg-gradient-to-t from-neutral-200 via-neutral-300 to-neutral-300  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
       <div>
@@ -76,6 +80,7 @@ export default function Home() {
                     opacity-0
                   transition-all
                   group-hover/progress-bar:opacity-100 absolute  top-1/2 w-4 h-4 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
+                  ref={currentHeadRef}
                   draggable
                   onDrag={handleCurrentHeadDrag}
                   onDragStart={handleDragStart}
