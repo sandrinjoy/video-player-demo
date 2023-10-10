@@ -62,7 +62,7 @@ export default function Home() {
           <div className="absolute inset-0 top-auto h-1/3 transition-all bg-gradient-to-t from-black/40 via-black/20 to-black/0 flex flex-col gap-3 items-stretch justify-end px-2 pb-3">
             {/* bar */}
             <div
-              className="h-[3px] w-full bg-gray-200/30 group/progress-bar cursor-pointer"
+              className="h-[3px] hover:h-[5px] w-full bg-gray-200/30 group/progress-bar cursor-pointer transition-all"
               ref={progressBarRef}
               onMouseDown={handleCurrentPosition}
             >
@@ -75,7 +75,7 @@ export default function Home() {
                   className="
                     opacity-0
                   transition-all
-                  group-hover/progress-bar:opacity-100 absolute  top-1/2 w-3 h-3 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
+                  group-hover/progress-bar:opacity-100 absolute  top-1/2 w-4 h-4 bg-red-600 rounded-full -translate-y-1/2 translate-x-1/2 right-0 cursor-pointer"
                   draggable
                   onDrag={handleCurrentHeadDrag}
                   onDragStart={handleDragStart}
