@@ -16,10 +16,12 @@ export default function Home() {
     const barElement = progressBarRef.current;
     const elementWidth = barElement.getBoundingClientRect().width;
     const elementLeft = barElement.getBoundingClientRect().left;
+    const maxClientWidth = elementWidth - elementLeft;
     const clickPosition = e.clientX;
-
-    const position = Math.round(
-      ((clickPosition - elementLeft) / elementWidth) * 100
+    const nextPosition = clickPosition - elementLeft;
+    const position = Math.min(
+      100,
+      Math.max(0, (nextPosition / elementWidth) * 100)
     );
     const diagnose = [
       "element" + JSON.stringify(barElement.getBoundingClientRect()),
@@ -45,14 +47,14 @@ export default function Home() {
   function handleDragEnd(e) {}
 
   return (
-    <main className="bg-gradient-to-t from-neutral-200 via-neutral-300 to-neutral-300  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
+    <main className="bg-gradient-to-t from-neutral-900 via-neutral-800 to-neutral-900  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
       <div>
-        <h1 className="text-6xl font-bold text-center text-neutral-800">
+        <h1 className="text-6xl font-bold text-center text-neutral-200">
           React Video
         </h1>
       </div>
       <div className="flex flex-col items-center justify-center w-full overflow-hidden">
-        <div className=" overflow-hidden  p-2 aspect-video w-10/12 bg-white relative text-black">
+        <div className=" overflow-hidden  p-2 aspect-video w-screen md:w-auto md:h-[70vh] bg-black relative text-white">
           {diagnoseContent.length > 0 && (
             <div className="absolute top-0 left-0 z-50 bg-white/50 p-2">
               {diagnoseContent.map((item, index) => (
