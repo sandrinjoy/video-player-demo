@@ -3,7 +3,7 @@ import { IoMdPause, IoMdPlay } from "react-icons/io";
 
 function PlayOverlay({
   isPlaying,
-  onPlay = (isPlaying: boolean) => {},
+  onPlay = (_isPlaying: boolean) => {},
 }: {
   onPlay: Function;
   isPlaying: boolean;
