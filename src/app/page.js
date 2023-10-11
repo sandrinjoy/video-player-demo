@@ -1,5 +1,6 @@
 "use client";
 import {
+  IoMdPause,
   IoMdPlay,
   IoMdSettings,
   IoMdSkipForward,
@@ -8,7 +9,10 @@ import {
 import { RiFullscreenFill } from "react-icons/ri";
 import { BiSolidCaptions } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
+import { VideoPlayerActions } from "../enums";
+import PlayOverlay from "../components/VideoPlayer/PlayOverlay";
 export default function Home() {
+  const [isPlaying, setIsPlaying] = useState(false);
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
@@ -62,7 +66,13 @@ export default function Home() {
               ))}
             </div>
           )}
-
+          <PlayOverlay
+            action="play"
+            isPlaying={isPlaying}
+            onPlay={(isPlaying) => {
+              setIsPlaying(isPlaying);
+            }}
+          />
           <div className="absolute inset-0 top-auto h-1/3 transition-all bg-gradient-to-t from-black/40 via-black/20 to-black/0 flex flex-col gap-3 items-stretch justify-end px-2 pb-3">
             {/* bar */}
             <div
@@ -94,7 +104,21 @@ export default function Home() {
             <div className="px-3 flex justify-between items-center drop-shadow-xl">
               {/* left */}
               <div className="flex gap-6 ">
-                <IoMdPlay className="text-2xl text-white" />
+                {!isPlaying ? (
+                  <IoMdPlay
+                    className="text-2xl text-white cursor-pointer"
+                    onClick={() => {
+                      setIsPlaying(true);
+                    }}
+                  />
+                ) : (
+                  <IoMdPause
+                    className="text-2xl text-white cursor-pointer"
+                    onClick={() => {
+                      setIsPlaying(false);
+                    }}
+                  />
+                )}
                 <IoMdSkipForward className="text-2xl text-white" />
                 <IoMdVolumeHigh className="text-2xl text-white" />
               </div>
