@@ -12,10 +12,14 @@ import { useEffect, useRef, useState } from "react";
 import { VideoPlayerActions } from "../enums";
 import PlayOverlay from "../components/VideoPlayer/PlayOverlay";
 import VolumeButton from "../components/VideoPlayer/VolumeButton";
+import FullScreenButton from "../components/VideoPlayer/FullScreenButton";
+import { cn } from "../lib/utils";
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
@@ -61,7 +65,13 @@ export default function Home() {
         </h1>
       </div>
       <div className="flex flex-col items-center justify-center w-full overflow-hidden">
-        <div className=" overflow-hidden  p-2 aspect-video w-screen md:w-auto md:h-[70vh] bg-black relative text-white">
+        {/* this will contain this video tag */}
+        <div
+          className={cn(
+            " overflow-hidden  p-2 aspect-video w-screen md:w-auto md:h-[70vh] bg-black relative text-white",
+            isFullScreen && "fixed inset-0 md:h-screen md:w-screen"
+          )}
+        >
           {diagnoseContent.length > 0 && (
             <div className="absolute top-0 left-0 z-50 bg-white/50 p-2">
               {diagnoseContent.map((item, index) => (
@@ -138,7 +148,18 @@ export default function Home() {
               <div className="flex gap-6 ">
                 <BiSolidCaptions className="text-2xl text-white" />
                 <IoMdSettings className="text-2xl text-white" />
-                <RiFullscreenFill className="text-2xl text-white" />
+                <FullScreenButton
+                  isFullScreen={isFullScreen}
+                  onFullScreenChange={(isFullScreen) => {
+                    setIsFullScreen(isFullScreen);
+                    // request fullscreen
+                    if (isFullScreen) {
+                      document.documentElement.requestFullscreen();
+                    } else {
+                      document.exitFullscreen();
+                    }
+                  }}
+                />
               </div>
             </div>
           </div>
