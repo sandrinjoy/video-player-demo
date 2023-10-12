@@ -14,6 +14,8 @@ import PlayOverlay from "../components/VideoPlayer/PlayOverlay";
 import VolumeButton from "../components/VideoPlayer/VolumeButton";
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
@@ -121,7 +123,16 @@ export default function Home() {
                   />
                 )}
                 <IoMdSkipForward className="text-2xl text-white" />
-                <VolumeButton />
+                <VolumeButton
+                  isMuted={isMuted}
+                  onMute={(isMuted) => {
+                    setIsMuted(isMuted);
+                  }}
+                  volume={volume}
+                  onVolumeChange={(volume) => {
+                    setVolume(volume);
+                  }}
+                />
               </div>
               {/* right */}
               <div className="flex gap-6 ">
