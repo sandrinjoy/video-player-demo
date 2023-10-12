@@ -10,7 +10,6 @@
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
-
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -18,17 +17,33 @@
     "moduleResolution": "Bundler",
     "module": "ESNext",
     "noEmit": true,
-
     /* If your code runs in the DOM: */
-    "lib": ["es2022", "dom", "dom.iterable"],
-
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ],
     // others
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "composite": false,
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }
