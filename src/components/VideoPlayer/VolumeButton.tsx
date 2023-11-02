@@ -46,7 +46,7 @@ function UnMutedButton({
     onVolumeChange(volume);
   }
   return (
-    <div className="group relative">
+    <div className="group flex items-center">
       {!!volume && volume > 0.5 && (
         <IoMdVolumeHigh
           className="text-2xl text-white"
@@ -72,9 +72,9 @@ function UnMutedButton({
           }}
         />
       )}
-      <div className="transition-all opacity-0 w-0 group-hover:w-20 group-hover:opacity-100 flex absolute inset-0 left-auto   justify-center items-center translate-x-full text-white">
+      <span className="transition-all opacity-0 w-0 group-hover:w-20 group-hover:opacity-100 text-white ">
         <div
-          className="h-1 rounded-full w-full bg-white/40"
+          className="h-1 rounded-full w-auto bg-white/40"
           onClick={(e) => {
             handleVolumeChange(e);
           }}
@@ -87,7 +87,7 @@ function UnMutedButton({
             }}
           ></div>
         </div>
-      </div>
+      </span>
     </div>
   );
 }

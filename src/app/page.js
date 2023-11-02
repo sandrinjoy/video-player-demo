@@ -14,12 +14,13 @@ import PlayOverlay from "../components/VideoPlayer/PlayOverlay";
 import VolumeButton from "../components/VideoPlayer/VolumeButton";
 import FullScreenButton from "../components/VideoPlayer/FullScreenButton";
 import { cn } from "../lib/utils";
+import PlayBackTime from "../components/VideoPlayer/PlayBackTime";
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isFullScreen, setIsFullScreen] = useState(false);
-
+  const [duration, setDuration] = useState(500);
   const [position, setPosition] = useState(0);
   const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
@@ -142,6 +143,10 @@ export default function Home() {
                   onVolumeChange={(volume) => {
                     setVolume(volume);
                   }}
+                />
+                <PlayBackTime
+                  currentTime={(position * duration) / 100}
+                  totalTime={duration}
                 />
               </div>
               {/* right */}
