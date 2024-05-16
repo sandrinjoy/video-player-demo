@@ -25,10 +25,10 @@ export default function Home() {
   const progressBarRef = useRef();
   const [diagnoseContent, setDiagnoseContent] = useState([]);
   function handleCurrentPosition(e) {
+    if(!e.clientX && !e.clientY && !e.pageX && !e.pageY) return;
     const barElement = progressBarRef.current;
     const elementWidth = barElement.getBoundingClientRect().width;
     const elementLeft = barElement.getBoundingClientRect().left;
-    const maxClientWidth = elementWidth - elementLeft;
     const clickPosition = e.clientX;
     const nextPosition = clickPosition - elementLeft;
     const position = Math.min(
@@ -56,7 +56,14 @@ export default function Home() {
     // e.dataTransfer.setDragImage(new Image(), 0, 0);
   }
 
-  function handleDragEnd(e) {}
+  function handleDragEnd(e) {
+    handleCurrentPosition(e);
+    // If you have a video element, you can set its currentTime here
+    // const videoElement = document.querySelector("video");
+    // if (videoElement) {
+    //   videoElement.currentTime = (position / 100) * duration;
+    // }
+  }
 
   return (
     <main className="bg-gradient-to-t from-neutral-900 via-neutral-800 to-neutral-900  flex min-h-screen flex-col items-center justify-center p-4 gap-4">
